@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Recipes</title>
+{% endblock %}
+
+{% block body %}
+
+<h1>All Recipes</h1>
+<hr>
+<a class="btn btn-success float-right" href="/recipe/new/">New recipe</a>
+<h2>Create New Recipe: </h2>
+<form action='/recipes' method='POST'> 
+  Title: <input class="form-control" type='text' name='title'  id='title' placeholder="title"><br>
+  <label for=”description”>Recipe description: … </label>
+  <textarea class="form-control" name='description'  id='description' placeholder=" description" rows="3"></textarea><br>
+  Author: <input class="form-control" type='text' name='author'  id='author' placeholder="author"><br>
+
+  <input class="btn btn-success" type='submit' value='Post'>
+</form>
+<hr>
+
+{% for recipe in recipes %}
+<small>Written by {{ recipe.author }} on {{ recipe.date_posted }}</small>
+<h2>{{ recipe.title }}</h2>
+
+<p style="white-space: pre-wrap">{{ recipe.description }}</p>
+<a class="btn btn-danger" href="/recipes/delete/{{ recipe.id }}">Delete</a> <a class="btn btn-warning" href="/recipes/edit/{{ recipe.id }}/">Edit</a>
+<hr/>
+{% endfor %}
+
+{% endblock %}
